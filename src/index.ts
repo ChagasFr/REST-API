@@ -25,7 +25,7 @@ server.listen(8080, () => {
 });
 
 const MONGO_URL =
-  "mongodb+srv://felipechagasdosreis:<felipechagasdosreis>@cluster0.8icuzur.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://felipechagasdosreis:felipechagasdosreis@cluster0.8icuzur.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
