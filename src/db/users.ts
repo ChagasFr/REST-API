@@ -9,3 +9,8 @@ const UserSchema = new mongoose.Schema({
     sessionToken: { type: String, required: true },
   },
 });
+
+export const UserModel = mongoose.model("User", UserSchema);
+
+export const gerUser = () => UserModel.find();
+export const gerUserByEmail = (email: string) => UserModel.findOne();
