@@ -10,5 +10,14 @@ export const register = async (req: express.Request, res: express.Response) => {
     if (!email || !password || !username) {
       return res.sendStatus(400);
     }
-  } catch (error) {}
+
+    const existingUser = await getUserById(email);
+
+    if (existingUser) {
+      return res.sendStatus(400);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
 };
