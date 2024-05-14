@@ -3,6 +3,28 @@ import express from "express";
 import { getUserById, createUser } from "db/users";
 import { random, authentication } from "../helpers";
 
+export const login = async (req: express.Request, res: express.Response) => {
+  try {
+    const { email, password, username } = req.body;
+    if (!email || !password) {
+      return res.sendStatus(400);
+    }
+
+    const user = await getUserById(email);
+    if (!user) {
+      return res.sendStatus(400);
+    }
+
+    const expectedHash = authentication(user.authentication.salt, password);
+    if (user.authentication.password !== expectedHash) {
+      return res.sendStatus(403);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
 export const register = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password, username } = req.body;
