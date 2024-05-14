@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getUserById, createUser } from "db/users";
+import { getUserByEmail, createUser, getUserById } from "db/users";
 import { random, authentication } from "../helpers";
 
 export const login = async (req: express.Request, res: express.Response) => {
@@ -10,7 +10,9 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(400);
     }
 
-    const user = await getUserById(email);
+    const user = await getUserByEmail(email).select(
+      "+authentication.salt +authentication.password"
+    );
     if (!user) {
       return res.sendStatus(400);
     }
